@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="MyNewHome.HomeDetailPage" Title="{Binding Title}">
+    <StackLayout Spacing="20" Padding="15">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" Grid.ColumnSpan="2" Text="{Binding FormattedStreetAddress1}" FontSize="Large" />
+            <Label Grid.Row="1" Grid.ColumnSpan="2" Text="{Binding FormattedStreetAddress2}" FontSize="Large" />
+            <Label Grid.Row="2" Grid.Column="0" Text="Listing Amount: " Margin="0,0,5,0" FontSize="Small" />
+            <Label Grid.Row="2" Grid.Column="1" Text="{Binding HomeDetail.ListingAmount, StringFormat='{0:C}'}" FontSize="Small" />
+            <Label Grid.Row="3" Grid.Column="0" Text="Days On Market: " Margin="0,0,5,0" FontSize="Small" />
+            <Label Grid.Row="3" Grid.Column="1" Text="{Binding HomeDetail.DaysOnMarket}" FontSize="Small" />
+        </Grid>
+    </StackLayout>
+</ContentPage>
