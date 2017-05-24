@@ -60,8 +60,8 @@ namespace MyNewHome
 
         public async Task<bool> DeleteItemAsync(string id)
         {
-            var _item = items.Where((HomeDetail arg) => arg.HomeDetailId == id).FirstOrDefault();
-            items.Remove(_item);
+            var item = items.Where((HomeDetail arg) => arg.HomeDetailId == id).FirstOrDefault();
+            items.Remove(item);
 
             return await Task.FromResult(true);
         }

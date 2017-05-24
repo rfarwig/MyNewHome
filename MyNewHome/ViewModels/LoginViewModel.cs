@@ -13,11 +13,11 @@ namespace MyNewHome
             NotNowCommand = new Command(App.GoToMainPage);
         }
 
-        string message = string.Empty;
+        string _message = string.Empty;
         public string Message
         {
-            get { return message; }
-            set { message = value; OnPropertyChanged(); }
+            get { return _message; }
+            set { _message = value; OnPropertyChanged(); }
         }
 
         public ICommand NotNowCommand { get; }

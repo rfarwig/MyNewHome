@@ -1,10 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using Xamarin.Forms;
 
 namespace MyNewHome
 {
@@ -37,11 +31,22 @@ namespace MyNewHome
             }
         }
 
+        public string FullFormatedStreedAddress
+        {
+            get
+            {
+                return string.Format("{0} {1}{2}{3}, {4}  {5}", HomeDetail.StreetAddress1, HomeDetail.StreetAddress2,
+                    Environment.NewLine, HomeDetail.City, HomeDetail.State, HomeDetail.ZipCode);
+            }
+        }
+
         public HomeDetailViewModel(HomeDetail homeDetail = null)
         {
+            if (homeDetail == null) 
+                return;
+            
             Title = homeDetail.StreetAddress1;
             HomeDetail = homeDetail;
         }
-
     }
 }

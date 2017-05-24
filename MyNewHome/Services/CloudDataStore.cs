@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,34 +11,34 @@ namespace MyNewHome
 {
     public class CloudDataStore : IDataStore<HomeDetail>
     {
-        HttpClient client;
-        IEnumerable<HomeDetail> items;
+        HttpClient _client;
+        IEnumerable<HomeDetail> _items;
 
         public CloudDataStore()
         {
-            client = new HttpClient();
-            client.BaseAddress = new Uri($"{App.BackendUrl}/");
+            _client = new HttpClient();
+            _client.BaseAddress = new Uri($"{App.BackendUrl}/");
 
-            items = new List<HomeDetail>();
+            _items = new List<HomeDetail>();
         }
 
         public async Task<IEnumerable<HomeDetail>> GetItemsAsync(bool forceRefresh = false)
         {
             if (forceRefresh && CrossConnectivity.Current.IsConnected)
             {
-                var json = await client.GetStringAsync($"api/item");
-                items = await Task.Run(() => JsonConvert.DeserializeObject<IEnumerable<HomeDetail>>(json));
+                var json = await _client.GetStringAsync($"api/item");
+                _items = await Task.Run(() => JsonConvert.DeserializeObject<IEnumerable<HomeDetail>>(json));
             }
 
-            return items;
+            return _items;
         }
 
         public async Task<HomeDetail> GetItemAsync(string id)
         {
             if (id != null && CrossConnectivity.Current.IsConnected)
             {
-                var json = await client.GetStringAsync($"api/item/{id}");
-                items = await Task.Run(() => JsonConvert.DeserializeObject<IEnumerable<HomeDetail>>(json));
+                var json = await _client.GetStringAsync($"api/item/{id}");
+                _items = await Task.Run(() => JsonConvert.DeserializeObject<IEnumerable<HomeDetail>>(json));
             }
 
             return null;
@@ -52,7 +51,7 @@ namespace MyNewHome
 
             var serializedItem = JsonConvert.SerializeObject(item);
 
-            var response = await client.PostAsync($"api/item", new StringContent(serializedItem, Encoding.UTF8, "application/json"));
+            var response = await _client.PostAsync($"api/item", new StringContent(serializedItem, Encoding.UTF8, "application/json"));
 
             return response.IsSuccessStatusCode ? true : false;
         }
@@ -66,7 +65,7 @@ namespace MyNewHome
             var buffer = System.Text.Encoding.UTF8.GetBytes(serializedItem);
             var byteContent = new ByteArrayContent(buffer);
 
-            var response = await client.PutAsync(new Uri($"api/item/{item.HomeDetailId}"), byteContent);
+            var response = await _client.PutAsync(new Uri($"api/item/{item.HomeDetailId}"), byteContent);
 
             return response.IsSuccessStatusCode ? true : false;
         }
@@ -76,7 +75,7 @@ namespace MyNewHome
             if (string.IsNullOrEmpty(id) && !CrossConnectivity.Current.IsConnected)
                 return false;
 
-            var response = await client.DeleteAsync($"api/item/{id}");
+            var response = await _client.DeleteAsync($"api/item/{id}");
 
             return response.IsSuccessStatusCode ? true : false;
         }

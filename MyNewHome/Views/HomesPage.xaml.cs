@@ -1,23 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
 using Xamarin.Forms;
 
 namespace MyNewHome
 {
     public partial class HomesPage : ContentPage
     {
-        HomesViewModel viewModel;
+        private readonly HomesViewModel _viewModel;
 
         public HomesPage()
         {
             InitializeComponent();
 
-            BindingContext = viewModel = new HomesViewModel();
+            BindingContext = _viewModel = new HomesViewModel();
         }
 
-        async void OnItemSelected(object sender, SelectedItemChangedEventArgs args)
+        private async void OnItemSelected(object sender, SelectedItemChangedEventArgs args)
         {
             var item = args.SelectedItem as HomeDetail;
             if (item == null)
@@ -29,7 +26,7 @@ namespace MyNewHome
             ItemsListView.SelectedItem = null;
         }
 
-        async void AddItem_Clicked(object sender, EventArgs e)
+        private async void AddItem_Clicked(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new NewHomePage());
         }
@@ -38,8 +35,8 @@ namespace MyNewHome
         {
             base.OnAppearing();
 
-            if (viewModel.Items.Count == 0)
-                viewModel.LoadItemsCommand.Execute(null);
+            if (_viewModel.Items.Count == 0)
+                _viewModel.LoadItemsCommand.Execute(null);
         }
     }
 }

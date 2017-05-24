@@ -9,23 +9,23 @@ namespace MyNewHome
         /// </summary>
         public IDataStore<HomeDetail> DataStore => DependencyService.Get<IDataStore<HomeDetail>>();
 
-        bool isBusy = false;
+        bool _isBusy = false;
         public bool IsBusy
         {
-            get { return isBusy; }
-            set { SetProperty(ref isBusy, value); }
+            get { return _isBusy; }
+            set { SetProperty(ref _isBusy, value); }
         }
         /// <summary>
         /// Private backing field to hold the title
         /// </summary>
-        string title = string.Empty;
+        string _title = string.Empty;
         /// <summary>
         /// Public property to set and get the title of the item
         /// </summary>
         public string Title
         {
-            get { return title; }
-            set { SetProperty(ref title, value); }
+            get { return _title; }
+            set { SetProperty(ref _title, value); }
         }
     }
 }

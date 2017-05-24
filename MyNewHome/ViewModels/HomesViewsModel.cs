@@ -19,13 +19,16 @@ namespace MyNewHome
 
             MessagingCenter.Subscribe<NewHomePage, HomeDetail>(this, "AddItem", async (obj, item) =>
             {
-                var _item = item as HomeDetail;
+                var _item = item;
+                if (_item == null) 
+                    throw new ArgumentNullException(nameof(_item));
+                
                 Items.Add(_item);
                 await DataStore.AddItemAsync(_item);
             });
         }
 
-        async Task ExecuteLoadItemsCommand()
+        private async Task ExecuteLoadItemsCommand()
         {
             if (IsBusy)
                 return;

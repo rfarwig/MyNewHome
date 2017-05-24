@@ -19,22 +19,23 @@ namespace MyNewHome
         }
 
         #region Setting Constants
-        const string UserIdKey = "userid";
-        static readonly string UserIdDefault = string.Empty;
 
-        const string AuthTokenKey = "authtoken";
-        static readonly string AuthTokenDefault = string.Empty;
+        public const string UserIdKey = "userid";
+        public static readonly string UserIdDefault = string.Empty;
+
+        public const string AuthTokenKey = "authtoken";
+        public static readonly string AuthTokenDefault = string.Empty;
         #endregion
 
         public static string AuthToken
         {
             get
             {
-                return AppSettings.GetValueOrDefault<string>(AuthTokenKey, AuthTokenDefault);
+                return AppSettings.GetValueOrDefault(AuthTokenKey, AuthTokenDefault);
             }
             set
             {
-                AppSettings.AddOrUpdateValue<string>(AuthTokenKey, value);
+                AppSettings.AddOrUpdateValue(AuthTokenKey, value);
             }
         }
 
@@ -43,11 +44,11 @@ namespace MyNewHome
         {
             get
             {
-                return AppSettings.GetValueOrDefault<string>(UserIdKey, UserIdDefault);
+                return AppSettings.GetValueOrDefault(UserIdKey, UserIdDefault);
             }
             set
             {
-                AppSettings.AddOrUpdateValue<string>(UserIdKey, value);
+                AppSettings.AddOrUpdateValue(UserIdKey, value);
             }
         }
     }
